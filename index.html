@@ -2,8 +2,9 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>BIP-Check – Zählt das zum BIP?</title>
+<meta name="theme-color" content="#eef4ff">
 <style>
 :root{
   --bg1:#eef4ff;
@@ -457,6 +458,128 @@ button, select{
   }
 }
 
+/* --- Erweiterte Smartphone- und Tablet-Optimierung --- */
+:root{
+  --page-pad:clamp(12px,2.6vw,24px);
+}
+
+html,body{
+  width:100%;
+  max-width:100%;
+  overflow-x:hidden;
+}
+
+body{
+  min-height:100dvh;
+}
+
+.app{
+  width:100%;
+  padding-top:max(14px, env(safe-area-inset-top));
+  padding-left:max(var(--page-pad), env(safe-area-inset-left));
+  padding-right:max(var(--page-pad), env(safe-area-inset-right));
+  padding-bottom:max(34px, env(safe-area-inset-bottom));
+}
+
+button{
+  -webkit-user-select:none;
+  user-select:none;
+}
+
+.answer-btn,.next-btn,.restart-btn{
+  min-height:56px;
+  touch-action:manipulation;
+}
+
+.answer-btn:focus-visible,.next-btn:focus-visible,.restart-btn:focus-visible{
+  outline:3px solid rgba(40,86,199,.35);
+  outline-offset:3px;
+}
+
+/* Tablets: kompakter, aber weiterhin großzügige Touch-Ziele */
+@media (min-width:641px) and (max-width:1024px){
+  .app{max-width:900px}
+  .header{align-items:center}
+  h1{font-size:clamp(38px,6vw,54px)}
+  .subtitle{font-size:17px}
+  .visual{height:clamp(235px,31vw,300px)}
+  .illustration{height:clamp(175px,24vw,225px);width:min(520px,90%)}
+  .content{padding:clamp(22px,3.4vw,30px)}
+  .question-title{font-size:clamp(28px,4.5vw,38px)}
+  .case{font-size:clamp(18px,2.4vw,21px)}
+  .answers{gap:12px}
+  .answer-btn{font-size:19px;padding:13px 16px}
+}
+
+/* Smartphones: Inhalte priorisieren, Illustration kompakter */
+@media (max-width:640px){
+  .app{padding-top:max(10px, env(safe-area-inset-top))}
+  .header{gap:8px}
+  .score-pill{font-size:14px}
+  .visual{height:clamp(150px,43vw,205px)}
+  .illustration{height:clamp(112px,33vw,155px);width:96%}
+  .content{padding:16px 14px 18px}
+  .category{margin-bottom:6px}
+  .question-title{font-size:clamp(22px,7vw,30px)}
+  .case{font-size:clamp(16px,4.7vw,18px);line-height:1.42}
+  .prompt{font-size:16.5px;margin-top:15px}
+  .answers{gap:9px;margin-top:12px}
+  .answer-btn{min-height:60px;font-size:17px;padding:11px 12px}
+  .feedback{font-size:15px;padding:13px 14px}
+  .feedback strong{font-size:16.5px}
+  .next-btn,.restart-btn{min-height:54px}
+}
+
+/* Sehr kleine Smartphones */
+@media (max-width:390px){
+  .app{padding-left:max(10px, env(safe-area-inset-left));padding-right:max(10px, env(safe-area-inset-right))}
+  .visual{height:145px}
+  .illustration{height:108px}
+  .content{padding:14px 12px 16px}
+  .question-title{font-size:21px}
+  .case{font-size:15.5px}
+  .answer-btn{font-size:16px;min-height:58px}
+  .counter{top:9px;left:10px}
+}
+
+/* Geräte mit wenig vertikalem Platz: Scrollwege verkürzen */
+@media (max-height:760px) and (max-width:640px){
+  .header .subtitle{display:none}
+  .progress-shell{margin-bottom:10px}
+  .visual{height:128px}
+  .illustration{height:96px}
+  .content{padding-top:13px}
+  .question-title{margin-bottom:7px}
+  .prompt{margin-top:12px}
+}
+
+/* Tablet/Smartphone im Querformat */
+@media (orientation:landscape) and (max-height:600px) and (max-width:1100px){
+  .app{max-width:1080px;padding-top:max(8px, env(safe-area-inset-top))}
+  .header{grid-template-columns:minmax(0,1fr) auto;gap:12px}
+  .header .subtitle{display:none}
+  .card{grid-template-columns:minmax(230px,.72fr) minmax(0,1.28fr)}
+  .visual{min-height:300px}
+  .illustration{height:165px;width:92%}
+  .content{padding:14px 16px}
+  .category{margin-bottom:5px}
+  .question-title{font-size:clamp(22px,3vw,28px);margin-bottom:7px}
+  .case{font-size:15.5px;line-height:1.38}
+  .prompt{font-size:15.5px;margin-top:10px}
+  .answers{gap:8px;margin-top:9px}
+  .answer-btn{min-height:50px;font-size:15.5px;padding:8px 10px}
+  .feedback{font-size:13.5px;padding:10px 11px;margin-top:9px}
+  .feedback strong{font-size:15px}
+  .next-row{margin-top:9px}
+  .next-btn{min-height:48px;padding:10px 16px}
+}
+
+/* Resultatansicht auf kleinen Geräten */
+@media (max-width:640px){
+  .result{padding-bottom:max(24px, env(safe-area-inset-bottom))}
+  .review-item{overflow-wrap:anywhere}
+}
+
 </style>
 </head>
 <body>
@@ -883,11 +1006,12 @@ render();
 const originalAnswer = answer;
 answer = function(choice){
   originalAnswer(choice);
-  if(window.matchMedia("(max-width: 640px)").matches){
-    setTimeout(()=>{
+  if(window.matchMedia("(max-width: 640px), (max-height: 600px)").matches){
+    requestAnimationFrame(()=>{
       const fb = document.getElementById("feedback");
-      fb.scrollIntoView({behavior:"smooth", block:"nearest"});
-    },120);
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      fb.scrollIntoView({behavior: reduceMotion ? "auto" : "smooth", block:"nearest"});
+    });
   }
 };
 
