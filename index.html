@@ -120,6 +120,18 @@ h1{
   position:relative;
   z-index:1;
 }
+
+/* SVG-Grafiken immer an den Illustrationsbereich anpassen.
+   Ohne diese Regel verwenden Inline-SVGs auf mobilen Browsern teils
+   ihre Standardgröße (300 × 150 px) und werden dadurch abgeschnitten. */
+.illustration > svg{
+  display:block;
+  width:100%;
+  height:100%;
+  max-width:100%;
+  max-height:100%;
+  overflow:visible;
+}
 .counter{
   position:absolute;
   top:18px;left:20px;
