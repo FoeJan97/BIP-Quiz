@@ -592,6 +592,46 @@ button{
   .review-item{overflow-wrap:anywhere}
 }
 
+/* --- Portrait-Fix für Smartphone-Grafiken ---
+   Muss nach den allgemeinen Smartphone-/Low-Height-Regeln stehen.
+   So wird der Illustrationsbereich im Hochformat nicht auf 128–145 px
+   zusammengestaucht und Inline-SVGs bleiben vollständig sichtbar. */
+@media (orientation:portrait) and (max-width:640px){
+  .visual{
+    height:190px !important;
+    min-height:190px;
+    padding:8px 0 12px;
+    overflow:hidden;
+  }
+  .illustration{
+    width:94% !important;
+    height:150px !important;
+    max-height:150px;
+    margin:auto;
+    transform:translateY(-2px);
+  }
+  .illustration > svg{
+    display:block;
+    width:100% !important;
+    height:100% !important;
+    max-width:100%;
+    max-height:100%;
+    overflow:visible;
+  }
+}
+
+@media (orientation:portrait) and (max-width:390px){
+  .visual{
+    height:176px !important;
+    min-height:176px;
+  }
+  .illustration{
+    height:138px !important;
+    max-height:138px;
+    width:95% !important;
+  }
+}
+
 </style>
 </head>
 <body>
